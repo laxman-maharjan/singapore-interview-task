@@ -13,13 +13,13 @@ export class ServiceProviderService {
 
   constructor(private http: HttpClient) { }
 
-  retrieveServiceProviderData(providerId ?: number): Observable<IServiceProviderModel[]>{
-    if(providerId == null || providerId == undefined)
+  retrieveServiceProviderData(providerId ?: string): Observable<IServiceProviderModel[]>{
+    if(providerId == null || providerId == undefined || providerId.trim() === '')
     {
       return this.http.get<IServiceProviderModel[]>(this.apiBaseUrl + 'api/serviceprovider/getprovider');
     }
     else{
-      return this.http.get<IServiceProviderModel[]>(this.apiBaseUrl + `api/serviceprovider/getprovider/${providerId}`);
+      return this.http.get<IServiceProviderModel[]>(this.apiBaseUrl + `api/serviceprovider/getprovider/${+providerId}`);
     }
   }
 

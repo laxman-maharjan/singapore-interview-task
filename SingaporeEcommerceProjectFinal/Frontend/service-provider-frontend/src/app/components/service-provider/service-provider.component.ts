@@ -9,8 +9,18 @@ import { ServiceProviderService } from 'src/app/core/services/service-provider.s
 })
 export class ServiceProviderComponent implements OnInit {
 
-  providerId ?: number;
+  providerId ?: string;
   serviceProviderData : IServiceProviderModel[] = [];
+
+  get isProviderIdNotANumber() {
+    if(this.providerId && this.providerId != null && this.providerId != undefined)
+    {
+      return isNaN(+this.providerId);
+    }
+    else{
+      return false;
+    }
+  }
 
   constructor(private serviceProviderService: ServiceProviderService) { }
 
@@ -18,6 +28,10 @@ export class ServiceProviderComponent implements OnInit {
   }
 
   retrieveServiceProviderData(){
+    if(this.isProviderIdNotANumber)
+    {
+      return;
+    }
     this.serviceProviderService.retrieveServiceProviderData(this.providerId).subscribe(data => {
       this.serviceProviderData = data;
       console.log(JSON.stringify(this.serviceProviderData));
