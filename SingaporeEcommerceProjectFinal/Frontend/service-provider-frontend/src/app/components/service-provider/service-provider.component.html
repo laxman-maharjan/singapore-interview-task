@@ -1,0 +1,42 @@
+<br>
+<div>
+    <label for="providerId">Provider ID: </label>&nbsp;
+    <input type="number" id="providerId" [(ngModel)]="providerId">
+    &nbsp;
+    <button class="btn btn-primary" (click)="retrieveServiceProviderData()">Retrieve</button>
+</div>
+<br>
+<div>
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Provider ID</th>
+            <th scope="col">Service Name</th>
+            <th scope="col">Provider Name</th>
+            <th scope="col">Begin Time</th>
+            <th scope="col">End Time</th>
+          </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="serviceProviderData && serviceProviderData.length > 0; else nodata">
+                <tr *ngFor="let data of serviceProviderData">
+                    <td>{{data.provider.providerId}}</td>
+                    <td>{{data.service.name}}</td>
+                    <td>{{data.provider.name}}</td>
+                    <td>{{data.beginTime}}</td>
+                    <td>{{data.endTime}}</td>
+                  </tr>
+            </ng-container>
+
+            <ng-template #nodata>
+                <tr><td colspan="5" style=" text-align: center;">No data to display</td></tr>
+            </ng-template>
+          
+        </tbody>
+      </table>
+</div>
+
+
+
+
+
